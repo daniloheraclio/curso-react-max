@@ -13,7 +13,7 @@ class App extends Component {
     showPersons: false
   }
 
-  nameChangeHandler = (event, id) => {
+  nameChangedHandler = ( event, id ) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
@@ -22,14 +22,14 @@ class App extends Component {
       ...this.state.persons[personIndex]
     };
 
-    // const person = Object.assign({}, this,state.persons[personIndex]);
+    // const person = Object.assign({}, this.state.persons[personIndex]);
 
     person.name = event.target.value;
 
     const persons = [...this.state.persons];
-    person[personIndex] = person;
+    persons[personIndex] = person;
 
-    this.setState( {persons: persons} )
+    this.setState( {persons: persons} );
   }
 
   deletePersonHandler = (personIndex) => {
@@ -45,9 +45,9 @@ class App extends Component {
     this.setState( {persons: persons} );
   }
 
-  togglePersonHandler = () => {
+  togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState( { showPersons: !doesShow } )
+    this.setState( { showPersons: !doesShow } );
   }
 
   render () {
@@ -64,12 +64,13 @@ class App extends Component {
     if ( this.state.showPersons ) {
       persons = (
         <div>
-          { this.state.persons.map((person, index) => {
+          {this.state.persons.map((person, index) => {
             return <Person
-            click={ () => this.deletePersonHandler(index) }name={ person.name }
-            age={ person.age }
-            key={ person.id }
-            changed={ (event) => this.nameChangeHandler(event, person.id) } />
+              click={() => this.deletePersonHandler(index)}
+              name={person.name} 
+              age={person.age}
+              key={person.id}
+              changed={(event) => this.nameChangedHandler(event, person.id)} />
           })}
         </div>
       );
@@ -80,12 +81,12 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
         <button
-          style={ style }
-          onClick={ this.togglePersonHandler }>Toggle Persons
-        </button>
-        { persons }
+          style={style}
+          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        {persons}
       </div>
-    )
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
